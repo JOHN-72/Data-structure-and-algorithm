@@ -2,35 +2,27 @@
 using namespace std;
 
 
-int bin(int ans[], int n, int k) {
-
-	int start = 0;
-	int end = n - 1;
-	int mid = (start + end) / 2;
-
-	while (start <= end) {
-
-		if (ans[mid] == k) {
-			return mid;
-
-		}
-		if (ans[mid] > k) {
-			end = mid - 1;
-		}
-		if (ans[mid] < k) {
-			start = mid + 1;
-		}
-
-		mid = (start + end) / 2;
 
 
+int binarySearch(int array[], int x, int low, int high) {
+  if (high >= low) {
+    int mid = low + (high - low) / 2;
 
+    // If found at mid, then return it
+    if (array[mid] == x)
+      return mid;
 
-	}
-	return -1;
+    // Search the left half
+    if (array[mid] > x)
+      return binarySearch(array, x, low, mid - 1);
 
+    // Search the right half
+    return binarySearch(array, x, mid + 1, high);
+  }
 
+  return -1;
 }
+
 int main() {
 
 
@@ -47,5 +39,5 @@ int main() {
 	int k;
 	cin >> k;
 
-	cout << bin(ans, n, k);
+	cout << binarySearch(ans, k, 0, n);
 }
